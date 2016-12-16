@@ -251,6 +251,7 @@ if (isset($_POST['submit'])) {
 		$Errors[$i] = 'ShrinkFactor';
 		$i++;
 	}
+	$i++;
 
 	if ($InputError !=1){
 		if ($_POST['Serialised']==1){ /*Not appropriate to have several dp on serial items */
@@ -423,7 +424,8 @@ if (isset($_POST['submit'])) {
 							decimalplaces='" . $_POST['DecimalPlaces'] . "',
 							shrinkfactor='" . filter_number_format($_POST['ShrinkFactor']) . "',
 							pansize='" . filter_number_format($_POST['Pansize']) . "',
-							nextserialno='" . $_POST['NextSerialNo'] . "'
+							nextserialno='" . $_POST['NextSerialNo'] . "',
+							remarks='" . $_POST['remarks'] . "'
 					WHERE stockid='".$StockID."'";
 
 				$ErrMsg = _('The stock item could not be updated because');
@@ -627,7 +629,8 @@ if (isset($_POST['submit'])) {
 												taxcatid,
 												decimalplaces,
 												shrinkfactor,
-												pansize)
+												pansize,
+												remarks)
 							VALUES ('".$StockID."',
 								'" . $_POST['Description'] . "',
 								'" . $_POST['LongDescription'] . "',
@@ -647,7 +650,8 @@ if (isset($_POST['submit'])) {
 								'" . $_POST['TaxCat'] . "',
 								'" . $_POST['DecimalPlaces']. "',
 								'" . filter_number_format($_POST['ShrinkFactor']) . "',
-								'" . filter_number_format($_POST['Pansize']) . "')";
+								'" . filter_number_format($_POST['Pansize']) . "',
+								'" . $_POST['remarks'] . "')";
 
 				$ErrMsg =  _('The item could not be added because');
 				$DbgMsg = _('The SQL that was used to add the item failed was');
@@ -735,6 +739,7 @@ if (isset($_POST['submit'])) {
 						unset($_POST['DecimalPlaces']);
 						unset($_POST['ShrinkFactor']);
 						unset($_POST['Pansize']);
+						unset($_POST['remarks']);
 						unset($StockID);
 						foreach ($ItemDescriptionLanguagesArray as $LanguageId) {
 							unset($_POST['Description_' . str_replace('.','_',$LanguageId)]);
@@ -885,6 +890,7 @@ if (isset($_POST['submit'])) {
 		foreach ($ItemDescriptionLanguagesArray as $LanguageId) {
 			unset($_POST['Description_' . str_replace('.','_',$LanguageId)]);
 		}
+		unset($_POST['remarks']);
 		unset($StockID);
 
 		$New=1;
@@ -946,7 +952,8 @@ if (!isset($StockID) OR $StockID=='' or isset($_POST['UpdateCategories'])) {
 					decimalplaces,
 					nextserialno,
 					pansize,
-					shrinkfactor
+					shrinkfactor,
+					remarks
 			FROM stockmaster
 			WHERE stockid = '".$StockID."'";
 
@@ -973,6 +980,7 @@ if (!isset($StockID) OR $StockID=='' or isset($_POST['UpdateCategories'])) {
 	$_POST['NextSerialNo'] = $myrow['nextserialno'];
 	$_POST['Pansize'] = $myrow['pansize'];
 	$_POST['ShrinkFactor'] = $myrow['shrinkfactor'];
+	$_POST['remarks'] = $myrow['remarks'];
 
 
 	$sql = "SELECT descriptiontranslation, longdescriptiontranslation, language_id FROM stockdescriptiontranslations WHERE stockid='" . $StockID . "' AND (";
@@ -1143,6 +1151,9 @@ if (!isset($_POST['ShrinkFactor'])) {
 }
 if (!isset($_POST['NextSerialNo'])) {
 	$_POST['NextSerialNo']=0;
+}
+if(!isset($_POST['remarks'])) {
+	$_POST['remarks'] = "";
 }
 
 
@@ -1347,6 +1358,11 @@ echo '<tr>
 	 <tr>
 		<td><label for="ShrinkageFactor">' . _('Shrinkage Factor') . ':</label></td>
 		<td><input class="number" id="ShrinkageFactor" maxlength="6" name="ShrinkFactor" size="6" title="' . _('Amount by which an output falls short of the estimated or planned output.') . '" type="text" value="' . locale_number_format($_POST['ShrinkFactor'],0) . '" /></td>
+	</tr>';
+
+echo '<tr>
+		<td><label for="remarks">' . _('remarks') . ':</label></td>
+		<td><textarea class="text" id="remarks" name="remarks" cols="40" rows="5">' . $_POST['remarks'] . '</textarea></td>
 	</tr>';
 
 echo '</table>

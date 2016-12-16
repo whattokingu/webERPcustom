@@ -236,6 +236,22 @@ if (!isset($_POST['Search']) AND (isset($_POST['Select']) OR isset($_SESSION['Se
 	echo '</td></tr>';
 	$PropertyCounter++;
 } //end loop round properties for the item category
+
+/*AUTHOR: WEIHAN 
+MODIFICATIONS STARTS HERE*/
+$sql = "SELECT remarks
+			FROM stockmaster
+			WHERE stockid='" . $StockID . "'";
+	$remarksResult = DB_query($sql);
+	$remarks = DB_fetch_row($remarksResult);
+		echo '<tr>
+				<th align="right"> Remarks: </th>';
+		echo '<td class="select" style="width: 120px; height: 75px">' . $remarks[0];
+		echo '</td></tr>';
+/*AUTHOR: WEIHAN 
+MODIFICATIONS ENDS HERE*/
+
+
 echo '</table></td>'; //end of Item Category Property mod
 echo '<td style="width:15%; vertical-align:top">
 			<table>'; //nested table to show QOH/orders
