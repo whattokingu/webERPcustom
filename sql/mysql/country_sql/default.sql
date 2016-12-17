@@ -2690,6 +2690,7 @@ CREATE TABLE `stockmaster` (
   `nextserialno` bigint(20) NOT NULL DEFAULT '0',
   `netweight` decimal(20,4) NOT NULL DEFAULT '0.0000',
   `lastcostupdate` date NOT NULL DEFAULT '0000-00-00',
+  `remarks` text NOT NULL DEFAULT "",
   PRIMARY KEY (`stockid`),
   KEY `CategoryID` (`categoryid`),
   KEY `Description` (`description`),
@@ -3433,12 +3434,12 @@ INSERT INTO `accountgroups` VALUES ('Sales',1,1,10,'');
 --
 -- Dumping data for table `bankaccounts`
 --
-
+/*
 INSERT INTO `bankaccounts` VALUES ('1010','GBP',2,'123','GBP account','123','','');
 INSERT INTO `bankaccounts` VALUES ('1030','AUD',2,'12445','Cheque Account','124455667789','123 Straight Street','');
 INSERT INTO `bankaccounts` VALUES ('1040','AUD',0,'','Savings Account','','','');
 INSERT INTO `bankaccounts` VALUES ('1060','USD',1,'','USD Bank Account','123','','GIFTS');
-
+*/
 --
 -- Dumping data for table `chartmaster`
 --
@@ -3607,12 +3608,8 @@ INSERT INTO `cogsglpostings` VALUES (6,'123','ANY','6100','AN');
 -- Dumping data for table `currencies`
 --
 
-INSERT INTO `currencies` VALUES ('Australian Dollars','AUD','Australia','cents',2,1.344,0);
-INSERT INTO `currencies` VALUES ('Swiss Francs','CHF','Swizerland','centimes',2,1.0141,0);
-INSERT INTO `currencies` VALUES ('Euro','EUR','Euroland','cents',2,0.944,1);
-INSERT INTO `currencies` VALUES ('Pounds','GBP','England','Pence',2,0.8011,0);
-INSERT INTO `currencies` VALUES ('Kenyian Shillings','KES','Kenya','none',0,101.841,0);
-INSERT INTO `currencies` VALUES ('US Dollars','USD','United States','Cents',2,1,1);
+INSERT INTO `currencies` VALUES ('Singapore dollar','SGD','Singapore','Cents',2,1.42,0);
+INSERT INTO `currencies` VALUES ('US Dollars','USD','United States','Cents',2,1,0);
 
 --
 -- Dumping data for table `holdreasons`
@@ -3626,17 +3623,17 @@ INSERT INTO `holdreasons` VALUES (51,'In liquidation',1);
 -- Dumping data for table `locations`
 --
 
-INSERT INTO `locations` VALUES ('AN','Anaheim',' ','','','','','United States','','','','Brett',1,'',0,'',0,1,'',1);
-INSERT INTO `locations` VALUES ('MEL','Melbourne','1234 Collins Street','Melbourne','Victoria 2345','','2345','Australia','+(61) (3) 5678901','+61 3 56789013','jacko@webdemo.com','Jack Roberts',1,'',0,'',1,1,'',1);
-INSERT INTO `locations` VALUES ('TOR','Toronto','Level 100 ','CN Tower','Toronto','','','','','','','Clive Contrary',1,'',1,'',1,1,'',1);
+INSERT INTO `locations` VALUES ('SG','Singapore','1091 Lower Delta Road','#01-04/05','Singapore 169202','','','Singapore','+(65) 62721416','+(65) 62782462','mingkee@singnet.com.sg','KT Cheang',1,'',0,'',0,0,'',1);
+INSERT INTO `locations` VALUES ('PROC','External Processing','','','','','','','','','','Maggie Lee',1,'',0,'',0,0,'',1);
 
 --
 -- Dumping data for table `paymentterms`
 --
 
-INSERT INTO `paymentterms` VALUES ('20','Due 20th Of the Following Month',0,22);
-INSERT INTO `paymentterms` VALUES ('30','Due By End Of The Following Month',0,30);
-INSERT INTO `paymentterms` VALUES ('7','Payment due within 7 days',7,0);
+INSERT INTO `paymentterms` VALUES ('30','Payment due within 30 days',30,0);
+INSERT INTO `paymentterms` VALUES ('45','Payment due within 45 days',45,0);
+INSERT INTO `paymentterms` VALUES ('60','Payment due within 60 days',60,0);
+INSERT INTO `paymentterms` VALUES ('90','Payment due within 60 days',90,0);
 INSERT INTO `paymentterms` VALUES ('CA','Cash Only',1,0);
 
 --
@@ -9121,19 +9118,15 @@ INSERT INTO `systypes` VALUES (600,'Auto Supplier Number',0);
 -- Dumping data for table `taxauthorities`
 --
 
-INSERT INTO `taxauthorities` VALUES (1,'Australian GST','2300','2310','','','','');
-INSERT INTO `taxauthorities` VALUES (5,'Sales Tax','2300','2310','','','','');
-INSERT INTO `taxauthorities` VALUES (11,'Canadian GST','2300','2310','','','','');
-INSERT INTO `taxauthorities` VALUES (12,'Ontario PST','2300','2310','','','','');
-INSERT INTO `taxauthorities` VALUES (13,'UK VAT','2300','2310','','','','');
+INSERT INTO `taxauthorities` VALUES (1,'GST','2300','2310','','','','');
+
 
 --
 -- Dumping data for table `taxgroups`
 --
 
-INSERT INTO `taxgroups` VALUES (1,'Default');
-INSERT INTO `taxgroups` VALUES (2,'Ontario');
-INSERT INTO `taxgroups` VALUES (3,'UK Inland Revenue');
+INSERT INTO `taxgroups` VALUES (1,'Singapore');
+
 
 --
 -- Dumping data for table `taxauthrates`
@@ -9459,13 +9452,10 @@ INSERT INTO `config` VALUES ('YearEnd','3');
 -- Dumping data for table `unitsofmeasure`
 --
 
-INSERT INTO `unitsofmeasure` VALUES (1,'each');
+INSERT INTO `unitsofmeasure` VALUES (1,'pcs');
 INSERT INTO `unitsofmeasure` VALUES (2,'meters');
 INSERT INTO `unitsofmeasure` VALUES (3,'kgs');
-INSERT INTO `unitsofmeasure` VALUES (4,'litres');
-INSERT INTO `unitsofmeasure` VALUES (5,'length');
-INSERT INTO `unitsofmeasure` VALUES (6,'hours');
-INSERT INTO `unitsofmeasure` VALUES (7,'feet');
+
 
 --
 -- Dumping data for table `paymentmethods`
@@ -9473,7 +9463,6 @@ INSERT INTO `unitsofmeasure` VALUES (7,'feet');
 
 INSERT INTO `paymentmethods` VALUES (1,'Cheque',1,1,1,0);
 INSERT INTO `paymentmethods` VALUES (2,'Cash',1,1,0,0);
-INSERT INTO `paymentmethods` VALUES (3,'Direct Credit',1,1,0,0);
 
 --
 -- Dumping data for table `scripts`
