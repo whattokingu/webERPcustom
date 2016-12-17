@@ -539,7 +539,7 @@ CREATE TABLE `custitem` (
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `custnotes` (
-  `noteid` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `noteid` int NOT NULL AUTO_INCREMENT,
   `debtorno` varchar(10) NOT NULL DEFAULT '0',
   `href` varchar(100) NOT NULL,
   `note` text NOT NULL,
