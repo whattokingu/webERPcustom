@@ -899,7 +899,7 @@ if (isset($StockItemsResult)
 			$Confirm_Invoice = $RootPath . '/ConfirmDispatch_Invoice.php?OrderNumber=' .$myrow['orderno'];
 
 			if ($_SESSION['PackNoteFormat']==1){ /*Laser printed A4 default */
-				$PrintDispatchNote = $RootPath . '/PrintCustOrder_generic.php?TransNo=' . $myrow['orderno'];
+				$PrintDispatchNote = $RootPath . '/PrintDOOrder.php?TransNo=' . $myrow['orderno'];
 			} else { /*pre-printed stationery default */
 				$PrintDispatchNote = $RootPath . '/PrintCustOrder.php?TransNo=' . $myrow['orderno'];
 			}
