@@ -603,19 +603,18 @@ if(isset($OK_to_PROCESS) AND $OK_to_PROCESS == 1 AND $_SESSION['ExistingOrder'.$
 			echo '<br /><table class="selection">
 					<tr>
 						<td><img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" /></td>
-						<td>' . ' ' . '<a target="_blank" href="' . $RootPath . '/PrintCustOrder.php?identifier='.$identifier . '&amp;TransNo=' . $OrderNo . '">' . _('Print packing slip') . ' (' . _('Preprinted stationery') . ')' . '</a></td>
+						<td>' . ' ' . '<a target="_blank" href="' . $RootPath . '/PrintDOOrder.php?identifier='.$identifier . '&amp;TransNo=' . $OrderNo . '">' . _('Print packing slip'). '</a></td>
 					</tr>';
-			echo '<tr>
-					<td><img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" /></td>
-					<td>' . ' ' . '<a target="_blank" href="' . $RootPath . '/PrintCustOrder_generic.php?identifier='.$identifier . '&amp;TransNo=' . $OrderNo . '">' . _('Print packing slip') . ' (' . _('Laser') . ')' . '</a></td>
-				</tr>';
+			// echo '<tr>
+			// 		<td><img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" /></td>
+			// 		<td>' . ' ' . '<a target="_blank" href="' . $RootPath . '/PrintCustOrder_generic.php?identifier='.$identifier . '&amp;TransNo=' . $OrderNo . '">' . _('Print packing slip') . ' (' . _('Laser') . ')' . '</a></td>
+			// 	</tr>';
+			// echo '<tr>
+			// 		<td><img src="'.$RootPath.'/css/'.$Theme.'/images/reports.png" title="' . _('Invoice') . '" alt="" /></td>
+			// 		<td>' . ' ' . '<a href="' . $RootPath . '/ConfirmDispatch_Invoice.php?identifier='.$identifier . '&amp;OrderNumber=' . $OrderNo .'">' . _('Confirm Dispatch and Produce Invoice') . '</a></td>
+			// 	</tr>';
 
-			echo '<tr>
-					<td><img src="'.$RootPath.'/css/'.$Theme.'/images/reports.png" title="' . _('Invoice') . '" alt="" /></td>
-					<td>' . ' ' . '<a href="' . $RootPath . '/ConfirmDispatch_Invoice.php?identifier='.$identifier . '&amp;OrderNumber=' . $OrderNo .'">' . _('Confirm Dispatch and Produce Invoice') . '</a></td>
-				</tr>';
-
-			echo '</table>';
+			// echo '</table>';
 
 		} else {
 			/*link to print the quotation */
