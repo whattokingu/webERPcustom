@@ -16,6 +16,13 @@ function echoObj($obj){
 	echo '</table>';
 }
 
+function translateTerms($term){
+	$sql = "SELECT terms FROM paymentterms WHERE termsindicator='".$term."'";
+	$resq = DB_query($sql, "Something went wrong with payment terms.");
+	$res = DB_fetch_array($resq);
+	return $res['terms'];
+}
+
 
 function breakTextToLines($text, $line){
 	$strarr = explode('\r\n', $text);
@@ -45,7 +52,7 @@ if(isset($_POST['submit'])){
 				deladd3='". trim($_POST['deladd3']) ."',
 				deladd4='". trim($_POST['deladd4']) ."',
 				ddate='".$_POST['ddate']."'
-			WHERE orderno='".$_POST['TransNo']."'";
+			WHERE orderno='".$_POST['orderno']."'";
 	$ErrMsg = _('The salesorder item could not be updated because');
 	$DbgMsg = _('The SQL that was used to update the salesorder item and failed was');
 	$result = DB_query($sql1,$ErrMsg,$DbgMsg,true);
@@ -55,7 +62,7 @@ if(isset($_POST['submit'])){
 		$sql2 = "UPDATE salesorderdetails SET
 				drev='". $_POST['drev'.$item] ."',
 				ddesc='". trim($_POST['ddesc'.$item]) . "'
-				WHERE orderno='" . $_POST['TransNo']."'
+				WHERE orderno='" . $_POST['orderno']."'
 				AND orderlineno='". $item. "'
 		";
 		$ErrMsg = _('The stock item could not be updated because');
@@ -249,7 +256,7 @@ if(isset($_POST['submit'])){
 		include('includes/footer.inc');
 		exit;
 	} else {
-    	$pdf->OutputD($_SESSION['DatabaseName'] . '_PackingSlip_' . date('Y-m-d') . '.pdf');
+    	$pdf->OutputD($_SESSION['DatabaseName'] . '_DeliveryOrder_' . $_GET['TransNo'] . '.pdf');
     	$pdf->__destruct();
 		$sql = "UPDATE salesorders SET printedpackingslip=1,
 							datepackingslipprinted='" . Date('Y-m-d') . "'
@@ -417,7 +424,7 @@ if (DB_num_rows($result)==0){
 				echo 	'<h1> D/O: '. $_GET['TransNo'] .'</h1>';
 				echo '<form name="ItemForm" enctype="multipart/form-data" method="post" action="' . htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES,'UTF-8') . '?TransNo='. $_GET['TransNo'] .'">';
 				echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
-				echo '<input type="hidden" name="TransNo" value="' . $_GET['TransNo'] . '" />';
+				echo '<input type="hidden" name="orderno" value="' . $_GET['TransNo'] . '" />';
 				echo 	'<h2> Delivery </h1>';
 				echo 	'<table class="delivery" >';
 				echo 		'<tr>';
@@ -445,8 +452,12 @@ if (DB_num_rows($result)==0){
 				echo			'<td><input type="text" name="salesref" value="'.$myrow['customerref'].'" size="50"/></td>';
 				echo 		'</tr>';
 				echo 		'<tr>';
-				echo 			'<td>Order Reference:</td>';
+				echo 			'<td>Date:</td>';
 				echo			'<td><input type="text" name="ddate" value="'.$date.'" size="50"/></td>';
+				echo 		'</tr>';
+				echo 		'<tr>';
+				echo 			'<td>Terms:</td>';
+				echo			'<td><input type="text" name="ddate" value="'.translateTerms($myrow['paymentterms']).'" size="50"/></td>';
 				echo 		'</tr>';
 				echo 	'</table>';
 				echo 	'<h2> Item Descriptions</h2>';
@@ -483,7 +494,7 @@ if (DB_num_rows($result)==0){
 					echo 			'<td>description:</td>';
 					echo 			'<td colspan="3">';
 					echo 				'<textarea type="text" name="ddesc'.$cnt.'" rows="4" cols="60" >'.trim($desc).'</textarea>';
-					echo			'</td><td>(max 4 rows)</td';
+					echo			'</td><td>(max 5 rows)</td';
 					echo 		'</tr>';
 					echo 		'<tr>';
 					echo 			'<td>units:</td';

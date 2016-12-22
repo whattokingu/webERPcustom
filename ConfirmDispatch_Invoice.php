@@ -3,6 +3,21 @@
 /* Creates sales invoices from entered sales orders based on the quantities dispatched that can be modified */
 
 /* Session started in session.inc for password checking and authorisation level check */
+
+function echoObj($obj){
+	echo '<table>';
+	foreach ($obj as $key => $value) {
+        echo "<tr>";
+        echo "<td>";
+        echo $key;
+        echo "</td>";
+        echo "<td>";
+        echo $value;
+        echo "</td>";
+        echo "</tr>";
+    }
+	echo '</table>';
+}
 include('includes/DefineCartClass.php');
 include('includes/DefineSerialItems.php');
 
@@ -95,8 +110,9 @@ if(!isset($_GET['OrderNumber']) AND !isset($_SESSION['ProcessingOrder'])) {
 	$GetOrdHdrResult = DB_query($OrderHeaderSQL,$ErrMsg,$DbgMsg);
 
 	if(DB_num_rows($GetOrdHdrResult)==1) {
-
+		
 		$myrow = DB_fetch_array($GetOrdHdrResult);
+
 
 		$_SESSION['Items'.$identifier]->DebtorNo = $myrow['debtorno'];
 		$_SESSION['Items'.$identifier]->OrderNo = $myrow['orderno'];
@@ -1652,7 +1668,7 @@ invoices can have a zero amount but there must be a quantity to invoice */
 	echo '<br /><div class="centre">';
 
 	if($_SESSION['InvoicePortraitFormat']==0) {
-		echo '<img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" />' . ' ' . '<a target="_blank" href="'.$RootPath.'/PrintCustTrans.php?FromTransNo='.$InvoiceNo.'&amp;InvOrCredit=Invoice&amp;PrintPDF=True">' . _('Print this invoice'). ' (' . _('Landscape') . ')</a><br /><br />';
+		echo '<img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" />' . ' ' . '<a target="_blank" href="'.$RootPath.'/PrintCustTrans.php?FromTransNo='.$InvoiceNo.'&amp;InvOrCredit=Invoice&amp;">' . _('Print this invoice'). ' (' . _('Landscape') . ')</a><br /><br />';
 	} else {
 		echo '<img src="'.$RootPath.'/css/'.$Theme.'/images/printer.png" title="' . _('Print') . '" alt="" />' . ' ' . '<a target="_blank" href="'.$RootPath.'/PrintCustTransPortrait.php?FromTransNo='.$InvoiceNo.'&amp;InvOrCredit=Invoice&amp;PrintPDF=True">' . _('Print this invoice'). ' (' . _('Portrait') . ')</a><br /><br />';
 	}
