@@ -2015,7 +2015,7 @@ then debit the expense account the stock is to written off to */
 	 echo _('Credit Note number') . ' ' . $CreditNo . ' ' . _('processed') . '<br />';
 	 echo '<a target="_blank" href="' . $RootPath . '/PrintCustTrans.php?FromTransNo=' . $CreditNo . '&InvOrCredit=Credit">' . _('Show this Credit Note on screen') . '</a><br />';
 	if ($_SESSION['InvoicePortraitFormat']==0){
-	 	echo '<a href="' . $RootPath . '/PrintCustTrans.php?FromTransNo=' . $CreditNo . '&InvOrCredit=Credit&PrintPDF=True">' . _('Print this Credit Note') . '</a>';
+	 	echo '<a href="' . $RootPath . '/PrintCustTrans.php?FromTransNo=' . $CreditNo . '&InvOrCredit=Credit">' . _('Print this Credit Note') . '</a>';
 	} else {
 		echo '<a href="' . $RootPath . '/PrintCustTransPortrait.php?FromTransNo=' . $CreditNo . '&InvOrCredit=Credit&PrintPDF=True">' . _('Print this Credit Note') . '</a>';
 	}
