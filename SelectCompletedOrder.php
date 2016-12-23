@@ -562,6 +562,7 @@ If (isset($SalesOrdersResult)) {
 	echo '<br /><table cellpadding="2" width="90%" class="selection">';
 
 	$tableheader = '<tr><th>' . _('Order') . ' #</th>
+						<th>' . _('CoC') .  '</th>
 						<th>' . _('Customer') . '</th>
 						<th>' . _('Branch') . '</th>
 						<th>' . _('Cust Order') . ' #</th>
@@ -590,8 +591,10 @@ If (isset($SalesOrdersResult)) {
 		$FormatedDelDate = ConvertSQLDate($myrow['deliverydate']);
 		$FormatedOrderDate = ConvertSQLDate($myrow['orddate']);
 		$FormatedOrderValue = locale_number_format($myrow['ordervalue'],$myrow['currdecimalplaces']);
+		$PrintCoc = $RootPath . '/PrintCoc.php?TransNo='.$myrow['orderno'];
 
 		printf('<td><a href="%s">%s</a></td>
+				<td><a href="%s">CoC</a></th>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
@@ -602,6 +605,7 @@ If (isset($SalesOrdersResult)) {
 				</tr>',
 				$ViewPage,
 				$myrow['orderno'],
+				$PrintCoc,
 				$myrow['name'],
 				$myrow['brname'],
 				$myrow['customerref'],

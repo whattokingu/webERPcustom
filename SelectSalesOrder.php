@@ -850,6 +850,7 @@ if (isset($StockItemsResult)
 								<th class="ascending" >' . _('Modify') . '</th>
 								<th>' . _('Invoice') . '</th>
 								<th>' . _('Dispatch Note') . '</th>
+								<th>' . _('CoC') . '</th>
 								<th class="ascending" >' . _('Customer') . '</th>
 								<th class="ascending" >' . _('Branch') . '</th>
 								<th class="ascending" >' . _('Cust Order') . ' #</th>
@@ -897,7 +898,7 @@ if (isset($StockItemsResult)
 
 			$ModifyPage = $RootPath . '/SelectOrderItems.php?ModifyOrderNumber=' . $myrow['orderno'];
 			$Confirm_Invoice = $RootPath . '/ConfirmDispatch_Invoice.php?OrderNumber=' .$myrow['orderno'];
-
+			$PrintCoc = $RootPath . '/PrintCoc.php?TransNo=' .$myrow['orderno'];
 			if ($_SESSION['PackNoteFormat']==1){ /*Laser printed A4 default */
 				$PrintDispatchNote = $RootPath . '/PrintDOOrder.php?TransNo=' . $myrow['orderno'];
 			} else { /*pre-printed stationery default */
@@ -927,7 +928,8 @@ if (isset($StockItemsResult)
 					printf('<td><a href="%s">%s</a></td>
 							<td><a href="%s">' . _('Invoice') . '</a></td>
 		 				<td><a target="_blank" href="%s">' . $PrintText . ' <img src="' .$RootPath.'/css/'.$Theme.'/images/pdf.png" title="' . _('Click for PDF') . '" alt="" /></a></td>
-		 				<td>%s</td>
+		 				<td><a href="%s">'. _('CoC') . '</a></td>
+						<td>%s</td>
 		 				<td>%s</td>
 		 				<td>%s</td>
 		 				<td>%s</td>
@@ -940,6 +942,7 @@ if (isset($StockItemsResult)
 		 				$myrow['orderno'],
 						$Confirm_Invoice,
 		 				$PrintDispatchNote,
+						$PrintCoc,
 		 				$myrow['name'],
 		 				$myrow['brname'],
 		 				$CustomerRef,
@@ -952,6 +955,7 @@ if (isset($StockItemsResult)
 					printf('<td><a href="%s">%s</a></td>
 							<td><a href="%s">' . _('Invoice') . '</a></td>
 							<td><a target="_blank" href="%s">' . $PrintText . ' <img src="' .$RootPath . '/css/' . $Theme .'/images/pdf.png" title="' . _('Click for PDF') . '" alt="" /></a></td>
+							<td><a href="%s">'._('CoC').'</a></td>
 							<td>%s</td>
 							<td>%s</td>
 							<td>%s</td>
@@ -964,6 +968,7 @@ if (isset($StockItemsResult)
 							$myrow['orderno'],
 							$Confirm_Invoice,
 							$PrintDispatchNote,
+							$PrintCoc,
 							$myrow['name'],
 							$myrow['brname'],
 							$myrow['customerref'],
