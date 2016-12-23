@@ -824,6 +824,7 @@ class TCPDF_STATIC {
 			case 'FR_TELLIERE'         : {$pf = array(  963.780, 1247.244); break;}
 			case 'FR_POT'              : {$pf = array(  878.740, 1133.858); break;}
 			case 'Z2'		   : {$pf = array(  560.80,320.76); 	break;}
+			case 'BAR_CODE_LABEL' 	   :	{$pf = array(165.6, 284.4); break;}
 			// DEFAULT ISO A4
 			default: {$pf = array(  595.276,  841.890); break;}
 		}

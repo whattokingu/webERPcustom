@@ -185,6 +185,16 @@ switch ($PaperSize) {
 		$Right_Margin=10;
 		break;
 
+	case 'BAR_CODE_LABEL':
+		$DocumentPaper = 'BAR_CODE_LABEL';
+		$DocumentOrientation = 'L';
+		$Page_Width = 284; //72*3.95;
+		$Page_Height = 165; // 2.3*72
+		$Top_Margin=10;
+		$Bottom_Margin=10;
+		$Left_Margin=10;
+		$Right_Margin=10;
+
 	default:
 		$DocumentOrientation ='L';
 		break;
