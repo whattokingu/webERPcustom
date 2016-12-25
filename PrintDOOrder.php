@@ -256,7 +256,7 @@ if(isset($_POST['submit'])){
 		include('includes/footer.inc');
 		exit;
 	} else {
-    	$pdf->OutputD($_SESSION['DatabaseName'] . '_DeliveryOrder_' . $_GET['TransNo'] . '.pdf');
+    	$pdf->OutputD('mkmw_DeliveryOrder_' . $_GET['TransNo'] . '.pdf');
     	$pdf->__destruct();
 		$sql = "UPDATE salesorders SET printedpackingslip=1,
 							datepackingslipprinted='" . Date('Y-m-d') . "'

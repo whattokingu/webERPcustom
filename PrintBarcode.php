@@ -137,7 +137,7 @@ if(isset($_POST['submit']) AND isset($Print)){
 			
 		}
 	}
-	$pdf->OutputD($_SESSION['DatabaseName'] . '_BarCodes_' . $_GET['TransNo'] . '.pdf');
+	$pdf->OutputD('mkmw_BarCodes_' . $_GET['TransNo'] . '.pdf');
 	$pdf->__destruct();
 
 

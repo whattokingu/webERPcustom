@@ -437,7 +437,7 @@ if (isset($PrintPDF) AND isset($FromTransNo) AND isset($InvOrCredit)){
 	// } else { //its not an email just print the invoice to PDF
 
 
-	$pdf->OutputD($_SESSION['DatabaseName'] . '_' . $InvOrCredit . '_' . $FromTransNo . '.pdf');
+	$pdf->OutputD('mkmw_' . $InvOrCredit . '_' . $FromTransNo . '.pdf');
 
 	// }
 	$pdf->__destruct();

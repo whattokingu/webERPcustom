@@ -143,7 +143,7 @@ if (isset($PrintPDF) AND isset($TransNo)){
 
 
 
-	$pdf->OutputD($_SESSION['DatabaseName'] . '_CoC' . '_' . $TransNo . '.pdf');
+	$pdf->OutputD('mkmw_CoC' . '_' . $TransNo . '.pdf');
 	$pdf->__destruct();
 
 
