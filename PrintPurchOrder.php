@@ -100,7 +100,7 @@ if(isset($_POST['submit']) AND isset($_GET['PrintPDF'])){
             width => '1',
             dash => '6,3'
         );
-
+        $YPos = 170;
         $FontSize=12;
         $pdf->line($SubTotalXPos +10, $YPos, $SubTotalXPos + 67, $YPos, $linestyle);
         $YPos -= 15;
@@ -395,7 +395,6 @@ if (DB_num_rows($result)==0){
 
 				echo '<input type="submit" name="submit" value="' . _('Save and Print PO') . '" />';
 				echo '</form></div>';
-				echoObj($_SESSION['AllowedPageSecurityTokens']);
 
 				
 			include('includes/footer.inc');

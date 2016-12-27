@@ -217,6 +217,10 @@ $FontSize =12;
 
 $pdf->addText(30, 30, $FontSize, _("Company's Stamp and Signature"));
 $pdf->addText(340, 100, $FontSize, _("for MING KEE METAL WORKS PTE LTD"));
+if($purchase) {
+    $pdf->addText(30, 100, $FontSize - 2, "Please acknowledge and fax back for");
+    $pdf->addText(30, 89, $FontSize - 2, "confirmation & acceptance");
+}
 $pdf->addText(450, 30, $FontSize, _("Authorized Signature"));
 
 
