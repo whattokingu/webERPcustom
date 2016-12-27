@@ -234,7 +234,7 @@ if (isset($_POST['RunReport'])){
 	echo '<table>
 		        <tr>
 		         <td>' . _('Selected Accounts') . ':</td>
-		         <td><select name="Account[]" multiple="multiple">';
+		         <td><select name="Account[]" multiple="multiple" style="height: 500px;">';
 	$sql = "SELECT chartmaster.accountcode, 
 				   chartmaster.accountname
 			FROM chartmaster 
