@@ -138,8 +138,8 @@ if(isset($_POST['submit']) AND isset($Print)){
 				$pdf->addText($XPos1+115, 31, $FontSize+3, $_POST['customerref'.$i]);
 				$pdf->addText($XPos1, 16, $FontSize+2, "Vendor: Ming Kee Metal Works Pte Ltd");
 				$pdf->addJpegFromFile('css/mk_black.jpg', 220, 110, 50, 50);
-				$pdf->addText(225, 117, $FontSize+15, "QC");
-				$pdf->addText(205, 92, $FontSize+7, "ACCEPTED");
+				$pdf->addText(229, 117, $FontSize+10, "QC");
+				$pdf->addText(210, 97, $FontSize+5, "ACCEPTED");
 				
 			
 		}
