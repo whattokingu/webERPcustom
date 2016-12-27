@@ -149,11 +149,12 @@ if (isset($OrderNo) AND $OrderNo != '' AND $OrderNo > 0 AND $OrderNo != 'Preview
 				echo '<p>';
 				prnMsg(_('Purchase Order Number') . ' ' . $OrderNo . ' ' . _('has previously been printed') . '. ' . _('It was printed on') . ' ' . ConvertSQLDate($POHeader['dateprinted']) . '<br />' . _('To re-print the order it must be modified to allow a reprint') . '<br />' . _('This check is there to ensure that duplicate purchase orders are not sent to the supplier resulting in several deliveries of the same supplies'), 'warn');
 
+
 				echo '<div class="centre">
- 					<li><a href="' . $RootPath . '/PO_PDFPurchOrder.php?OrderNo=' . $OrderNo . '&ViewingOnly=1">' . _('Print This Order as a Copy') . '</a>
- 					<li><a href="' . $RootPath . '/PO_Header.php?ModifyOrderNumber=' . $OrderNo . '">' . _('Modify the order to allow a real reprint') . '</a>
-					<li><a href="' . $RootPath . '/PO_SelectPurchOrder.php">' . _('Select another order') . '</a>
-					<li><a href="' . $RootPath . '/index.php">' . _('Back to the menu') . '</a></div>';
+ 					<li><a href="' . $RootPath . '/PrintPurchOrder.php?OrderNo=' . $OrderNo . '">' . _('Print This Order as a Copy') . '</a></li>
+ 					<li><a href="' . $RootPath . '/PO_Header.php?ModifyOrderNumber=' . $OrderNo . '">' . _('Modify the order to allow a real reprint') . '</a></li>
+					<li><a href="' . $RootPath . '/PO_SelectPurchOrder.php">' . _('Select another order') . '</a></li>
+					<li><a href="' . $RootPath . '/index.php">' . _('Back to the menu') . '</a></li></div>';
 
 				include('includes/footer.inc');
 				exit;
@@ -191,16 +192,18 @@ else if ($OrderNo == 'Preview') { // We are previewing the order
 
 /* Load the relevant xml file */
 if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
-	if ($OrderNo == 'Preview') {
-		$FormDesign = simplexml_load_file(sys_get_temp_dir() . '/PurchaseOrder.xml');
-	} else {
-		$FormDesign = simplexml_load_file($PathPrefix . 'companies/' . $_SESSION['DatabaseName'] . '/FormDesigns/PurchaseOrder.xml');
-	}
-	// Set the paper size/orintation
-	$PaperSize = $FormDesign->PaperSize;
+//	if ($OrderNo == 'Preview') {
+//		$FormDesign = simplexml_load_file(sys_get_temp_dir() . '/PurchaseOrder.xml');
+//	} else {
+//		$FormDesign = simplexml_load_file($PathPrefix . 'companies/' . $_SESSION['DatabaseName'] . '/FormDesigns/PurchaseOrder.xml');
+//	}
+//	// Set the paper size/orintation
+//	$PaperSize = $FormDesign->PaperSize;
 	include('includes/PDFStarter.php');
 	$pdf->addInfo('Title', _('Purchase Order'));
 	$pdf->addInfo('Subject', _('Purchase Order Number') . ' ' . $OrderNo);
+	$purchase = true;
+	include('includes/PDFOrderPageHeader_generic.inc');
 	$line_height = $FormDesign->LineHeight;
 	$PageNumber = 1;
 	/* Then there's an order to print and its not been printed already (or its been flagged for reprinting)
@@ -224,7 +227,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 	}
 	if ($OrderNo == 'Preview' or DB_num_rows($result) > 0) {
 		/*Yes there are line items to start the ball rolling with a page header */
-		include('includes/PO_PDFOrderPageHeader.inc');
+//		include('includes/PO_PDFOrderPageHeader.inc');
 		$YPos = $Page_Height - $FormDesign->Data->y;
 		$OrderTotal = 0;
 		while ((isset($OrderNo) AND $OrderNo == 'Preview') OR (isset($result) AND !is_bool($result) AND $POLine = DB_fetch_array($result))) {
@@ -375,7 +378,7 @@ if (isset($MakePDFThenDisplayIt) or isset($MakePDFThenEmailIt)) {
 else {
 	/*the user has just gone into the page need to ask the question whether to print the order or email it to the supplier */
 	include('includes/header.inc');
-	echo '<form action="' . htmlspecialchars($_SERVER['PHP_SELF'], ENT_QUOTES, 'UTF-8') . '" method="post">';
+	echo '<form action="'.$RootPath.'/PrintPurchOrder.php?OrderNo='.$OrderNo.'" method="post">';
 	echo '<div>';
 	echo '<input type="hidden" name="FormID" value="' . $_SESSION['FormID'] . '" />';
 	if ($ViewingOnly == 1) {

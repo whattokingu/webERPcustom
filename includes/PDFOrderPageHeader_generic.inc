@@ -60,6 +60,8 @@ $YPos = 690;
 
 if($invoice){
 	$pdf->addText(360, $YPos, $FontSize, _('INV'));
+}elseif($purchase){
+	$pdf->addText(360, $YPos, $FontSize, _('P/O'));
 }else{
 	$pdf->addText(360, $YPos, $FontSize, _('D/O'));
 }
@@ -67,6 +69,8 @@ $pdf->addText(360+40, $YPos, $FontSize, $_POST['orderno'], 'left');
 $FontSize=14;
 if($invoice){
 	$pdf->addText($XPos, $YPos,$FontSize, _('Invoiced To').':' );
+} elseif($purchase){
+
 }else{
 	$pdf->addText($XPos, $YPos,$FontSize, _('Delivered To').':' );
 }
@@ -76,6 +80,13 @@ if($invoice){
 	$pdf->addText($XPos, $YPos-30,$FontSize, $myrow['address1']);
 	$pdf->addText($XPos, $YPos-45,$FontSize, $myrow['address2']);
 	$pdf->addText($XPos, $YPos-60,$FontSize, $myrow['address3'] . ' ' . $myrow['address4'] . ' ' . $myrow['address5'] . ' '/* . $myrow['deladd6']*/);
+}elseif($purchase){
+    $pdf->addText($XPos, $YPos,$FontSize, $_POST['sname']);
+	$pdf->addText($XPos, $YPos-15,$FontSize, $_POST['sadd1']);
+	$pdf->addText($XPos, $YPos-30,$FontSize, $_POST['sadd2']);
+	$pdf->addText($XPos, $YPos-45,$FontSize, $_POST['sadd3']);
+	$pdf->addText($XPos, $YPos-60,$FontSize, $_POST['sadd4']);
+	$pdf->addText($XPos, $YPos-75,$FontSize, $_POST['sadd5']);
 }else{
 	$pdf->addText($XPos, $YPos-15,$FontSize, $myrow['deliverto']);
 	$pdf->addText($XPos, $YPos-30,$FontSize, $myrow['deladd1']);
@@ -113,9 +124,16 @@ $pdf->addText($XPos+$Offset, $RightYPos,$FontSize, _(': ' . '2000046280D'));
 $correction = 0;
 if($invoice){
 	$correction = 15;
-}	
-$pdf->addText($XPos, $RightYPos-15,$FontSize, _('YOUR REF'));
-$pdf->addText($XPos+$Offset, $RightYPos-15,$FontSize, ': ' . $_POST['salesref']);
+}
+if(!$purchase) {
+    $pdf->addText($XPos, $RightYPos - 15, $FontSize, _('YOUR REF'));
+    $pdf->addText($XPos + $Offset, $RightYPos - 15, $FontSize, ': ' . $_POST['salesref']);
+}else{
+	$pdf->addText($XPos, $RightYPos-15, $FontSize, _('DELIVERY DATE'));
+	$pdf->addText($XPos + $Offset, $RightYPos-15, $FontSize, ': ' . $_POST['dedate']);
+}
+
+
 if($invoice){
 	$pdf->addText($XPos, $RightYPos-30,$FontSize, _('OUR D.O. NO.'));
 	$pdf->addText($XPos+$Offset, $RightYPos-30,$FontSize, ': ' . $_POST{'orderno'});
@@ -129,17 +147,25 @@ $pdf->addText($XPos, $RightYPos-45-$correction,$FontSize,  _('TERMS'));
 
 
 $terms = translateTerms($myrow['paymentterms']);
+
 if($invoice){
 	$terms = $_POST['terms'];
+}elseif($purchase){
+	$terms = $_POST['paymentterms'];
 }
 $pdf->addText($XPos+$Offset, $RightYPos-45-$correction,$FontSize, ': ' .  $terms);
 $pdf->addText($XPos, $RightYPos-60-$correction,$FontSize,  _('ACCOUNT NO'));
-$pdf->addText($XPos+$Offset, $RightYPos-60-$correction,$FontSize, ': ' .  $myrow['debtorno']);
+if($purchase){
+    $pdf->addText($XPos + $Offset, $RightYPos - 60 - $correction, $FontSize, ': ' . $_POST['accno']);
+}else {
+    $pdf->addText($XPos + $Offset, $RightYPos - 60 - $correction, $FontSize, ': ' . $myrow['debtorno']);
+}
 $pdf->addText($XPos, $RightYPos-75-$correction,$FontSize,  _('PAGE'));
 $pdf->addText($XPos+$Offset, $RightYPos-75-$correction,$FontSize, ': ' .  $PageNumber);
 
 $YPos -= 152;
 $XPos = 30;
+
 
 $header_line_height = $line_height+25;
 
@@ -149,7 +175,7 @@ $UnitXPos = $DescXPos+370;
 $QtyXPos = $UnitXPos + 55;
 
 
-if($invoice){
+if($invoice OR $purchase){
 	$QtyXPos = $DescXPos + 320;
 }
 $UPriceXPos = $QtyXPos + 51;
@@ -164,12 +190,12 @@ $SubTotalW = 70;
 if($invoice){
 	$DescW = 310;
 }
-if($invoice){
+if($invoice OR $purchase){
 	$YPos += 15;
 }
 $LeftOvers = $pdf->addTextWrap($XPos,$YPos,$SNW,$FontSize, _('S/N'),'left');
 $LeftOvers = $pdf->addTextWrap($DescXPos,$YPos,$DescW,$FontSize, _('Item Description'),'left');
-if($invoice){
+if($invoice or $purchase){
 	$LeftOvers = $pdf->addTextWrap($UPriceXPos, $YPos+5, $UnitW, $FontSize, _('U-Price'),'center');
 	$LeftOvers = $pdf->addTextWrap($UPriceXPos, $YPos-5, $UnitW, $FontSize-1, _('(SGD)'),'center');
 	$LeftOvers = $pdf->addTextWrap($SubTotalXPos, $YPos+5, $SubtotalW, $FontSize, _('Amount'),'center');
@@ -209,7 +235,7 @@ $pdf->line(25, 528, 565, 528, $linestyle);
 $pdf->line(60, 555, 60, 105, $linestyle);
 $pdf ->line(455,555,455,105);
 $pdf ->line(500,555,500,105);
-if($invoice){
+if($invoice or $purchase){
 	$pdf->line(400, 555,400,105);
 }
 //FOOTER LINES

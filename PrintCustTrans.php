@@ -860,7 +860,6 @@ if (isset($PrintPDF) AND isset($FromTransNo) AND isset($InvOrCredit)){
 						<td><input type="text" name="docremarks" value="'.$myrow['docremarks'].'" size="50"/></td>
 				</table>';
 				echo '<table style="width:100%"><tr>
-                    <td style="width:80%">' . $myrow['invtext'] . '</td>
 					<td class="number">' . _('Sub Total') . ' ' . $DisplaySubTot . '<br />';
 				// echo _('Freight') . ' ' . $DisplayFreight . '<br />';
 				echo _('GST (7%)') . ' ' . $DisplayTax . '<br />';

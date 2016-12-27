@@ -202,15 +202,6 @@ if(isset($_POST['submit'])){
 				$ListCount++;
 				$SN++;
 				$DisplayQty = locale_number_format($_POST['qty'.($SN-1)],$myrow2['decimalplaces']);
-				// $DisplayPrevDel = locale_number_format($myrow2['qtyinvoiced'],$myrow2['decimalplaces']);
-				// $DisplayQtySupplied = locale_number_format($myrow2['quantity'] - $myrow2['qtyinvoiced'],$myrow2['decimalplaces']);
-
-				// $LeftOvers = $pdf->addTextWrap($XPos,$YPos,127,$FontSize,$myrow2['stkcode']);
-				// $LeftOvers = $pdf->addTextWrap(147,$YPos,255,$FontSize,$myrow2['description']);
-				// $LeftOvers = $pdf->addTextWrap(400,$YPos,85,$FontSize,$DisplayQty,'right');
-				// $LeftOvers = $pdf->addTextWrap(487,$YPos,70,$FontSize,$myrow2['bin'],'left');
-				// $LeftOvers = $pdf->addTextWrap(573,$YPos,85,$FontSize,$DisplayQtySupplied,'right');
-				// $LeftOvers = $pdf->addTextWrap(672,$YPos,85,$FontSize,$DisplayPrevDel,'right');
 				$LeftOvers = $pdf->addTextWrap($SNXPos,$YPos,$SNW,$FontSize, $SN, 'center');
 				$LeftOvers = $pdf->addTextWrap($DescXPos, $YPos, 150, $FontSize, $myrow2['stkcode'], 'left');
 				$LeftOvers = $pdf->addTextWrap($DescXPos+170, $YPos, 110, $FontSize, $myrow2['drev'], 'right');
@@ -494,10 +485,10 @@ if (DB_num_rows($result)==0){
 					echo 			'<td>description:</td>';
 					echo 			'<td colspan="3">';
 					echo 				'<textarea type="text" name="ddesc'.$cnt.'" rows="4" cols="60" >'.trim($desc).'</textarea>';
-					echo			'</td><td>(max 5 rows)</td';
+					echo			'</td><td>(max 5 rows)</td>';
 					echo 		'</tr>';
 					echo 		'<tr>';
-					echo 			'<td>units:</td';
+					echo 			'<td>units:</td>';
 					echo 			'<td><input type="text" name="units'.$cnt.'" value="' . $myrow2['units'] . '" size="5"/></td>';
 					echo 			'<td>quantity:</td>';
 					echo 			'<td><input type="text" name="qty'.$cnt.'" value="' . $myrow2['quantity'] . '" size="7"/></td>';
