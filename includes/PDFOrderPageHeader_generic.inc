@@ -10,7 +10,7 @@ $XPos = $Page_Width/2 - 60;
 
 /* CUSTOM DESIGNED FORM */
 /*LOGO comes with company address already*/
-    $pdf->addJpegFromFile($_SESSION['LogoFile'],15,715,0,110);
+    $pdf->addJpegFromFile($_SESSION['LogoFile'],15,715,0,130);
 $FontSize=18;
 $linestyle = array(
 				width => '1',
@@ -133,11 +133,8 @@ if($invoice){
 	
 }
 $pdf->addText($XPos, $RightYPos-30-$correction,$FontSize,  _('DATE'));
-if($invoice){
-	$pdf->addText($XPos+$Offset, $RightYPos-30-$correction,$FontSize,  ': ' . ConvertSQLDate($_POST['ddate']));
-}else{
-	$pdf->addText($XPos+$Offset, $RightYPos-30-$correction,$FontSize,  ': ' . ConvertSQLDate($myrow['ddate']));
-}
+$pdf->addText($XPos+$Offset, $RightYPos-30-$correction,$FontSize,  ': ' . ConvertSQLDate($_POST['ddate']));
+
 $pdf->addText($XPos, $RightYPos-45-$correction,$FontSize,  _('TERMS'));
 
 

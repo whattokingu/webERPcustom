@@ -457,7 +457,7 @@ if (DB_num_rows($result)==0){
 				echo 		'</tr>';
 				echo 		'<tr>';
 				echo 			'<td>Terms:</td>';
-				echo			'<td><input type="text" name="ddate" value="'.translateTerms($myrow['paymentterms']).'" size="50"/></td>';
+				echo			'<td><input type="text" name="paymentterms" value="'.translateTerms($myrow['paymentterms']).'" size="50"/></td>';
 				echo 		'</tr>';
 				echo 	'</table>';
 				echo 	'<h2> Item Descriptions</h2>';
