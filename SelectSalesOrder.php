@@ -849,7 +849,7 @@ if (isset($StockItemsResult)
 			$TableHeader = '<tr>
 								<th class="ascending" >' . _('Modify') . '</th>
 								<th>' . _('Invoice') . '</th>
-								<th>' . _('Dispatch Note') . '</th>
+								<th>' . _('Delivery Order') . '</th>
 								<th>' . _('CoC') . '</th>
 								<th>' . _('Barcode') . '</th>
 								<th class="ascending" >' . _('Customer') . '</th>

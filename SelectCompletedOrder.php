@@ -500,7 +500,7 @@ If (isset($StockItemsResult)) {
 
 	echo '<br />
 		<table cellpadding="2" class="selection">';
-
+	
 	$TableHeadings = '<tr>
 						<th>' . _('Code') . '</th>
 						<th>' . _('Description') . '</th>
@@ -559,10 +559,13 @@ If (isset($SalesOrdersResult)) {
 
 /*show a table of the orders returned by the SQL */
 
+
 	echo '<br /><table cellpadding="2" width="90%" class="selection">';
 
 	$tableheader = '<tr><th>' . _('Order') . ' #</th>
+						<th>' ._('Print Invoice') . '</th>
 						<th>' . _('CoC') .  '</th>
+						<th>' ._('DO') . '</th>
 						<th>' . _('Customer') . '</th>
 						<th>' . _('Branch') . '</th>
 						<th>' . _('Cust Order') . ' #</th>
@@ -586,15 +589,29 @@ If (isset($SalesOrdersResult)) {
 			echo '<tr class="OddTableRows">';
 			$k=1;
 		}
-
+		$sdsql = "SELECT completed 
+			FROM salesorderdetails
+			WHERE orderno = ".$myrow['orderno']."
+			AND completed = 0
+			";
+		$PrintInv = $RootPath . '/ConfirmDispatch_Invoice.php?OrderNumber=' . $myrow['orderno'];
+		$sdres = DB_query($sdsql);
+		
+		if(DB_num_rows($sdres) == 0){
+			$PrintInv = $RootPath . '/PrintCustTrans.php?FromTransNo='.$myrow['orderno'].'&InvOrCredit=Invoice';
+		}
+		
 		$ViewPage = $RootPath . '/OrderDetails.php?OrderNumber=' . $myrow['orderno'];
 		$FormatedDelDate = ConvertSQLDate($myrow['deliverydate']);
 		$FormatedOrderDate = ConvertSQLDate($myrow['orddate']);
 		$FormatedOrderValue = locale_number_format($myrow['ordervalue'],$myrow['currdecimalplaces']);
 		$PrintCoc = $RootPath . '/PrintCoc.php?TransNo='.$myrow['orderno'];
+		$PrintDO = $RootPath . '/PrintDOOrder.php?TransNo=' .$myrow['orderno'];
 
 		printf('<td><a href="%s">%s</a></td>
+				<td><a href="%s">Inv</a></td>
 				<td><a href="%s">CoC</a></th>
+				<td><a href="%s">DO</a></th>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
@@ -605,7 +622,9 @@ If (isset($SalesOrdersResult)) {
 				</tr>',
 				$ViewPage,
 				$myrow['orderno'],
+				$PrintInv,
 				$PrintCoc,
+				$PrintDO,
 				$myrow['name'],
 				$myrow['brname'],
 				$myrow['customerref'],
