@@ -566,6 +566,7 @@ If (isset($SalesOrdersResult)) {
 						<th>' ._('Print Invoice') . '</th>
 						<th>' . _('CoC') .  '</th>
 						<th>' ._('DO') . '</th>
+						<th>' ._('Bar Codes').'</th>
 						<th>' . _('Customer') . '</th>
 						<th>' . _('Branch') . '</th>
 						<th>' . _('Cust Order') . ' #</th>
@@ -607,11 +608,12 @@ If (isset($SalesOrdersResult)) {
 		$FormatedOrderValue = locale_number_format($myrow['ordervalue'],$myrow['currdecimalplaces']);
 		$PrintCoc = $RootPath . '/PrintCoc.php?TransNo='.$myrow['orderno'];
 		$PrintDO = $RootPath . '/PrintDOOrder.php?TransNo=' .$myrow['orderno'];
-
+		$PrintBarcode = $RootPath . '/PrintBarcode.php?TransNo=' . $myrow['orderno'];
 		printf('<td><a href="%s">%s</a></td>
 				<td><a href="%s">Inv</a></td>
 				<td><a href="%s">CoC</a></th>
 				<td><a href="%s">DO</a></th>
+				<td><a href="%s">bar code</a></td>
 				<td>%s</td>
 				<td>%s</td>
 				<td>%s</td>
@@ -625,6 +627,7 @@ If (isset($SalesOrdersResult)) {
 				$PrintInv,
 				$PrintCoc,
 				$PrintDO,
+				$PrintBarcode,
 				$myrow['name'],
 				$myrow['brname'],
 				$myrow['customerref'],

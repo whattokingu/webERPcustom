@@ -96,43 +96,50 @@ if(isset($_POST['submit']) AND isset($Print)){
 			}
 			$stockcodeBar = new code128($_POST['partno'.$i]);
 			ob_start();
-			imagepng(imagepng($stockcodeBar->draw()));
+			imagepng(imagepng($stockcodeBar->draw(false)));
 			$Image_String = ob_get_contents();
 			ob_end_clean();
 			$XPos1= 10;
 			$pdf->addJpegFromFile('@' . $Image_String,$XPos1,115,calcBarcodeLength($_POST['partno'.$i]), 45);
-			$pdf->addText($XPos1, 125, $FontSize, "Part:");
+			$pdf->addText($XPos1, 125, $FontSize+3, "Part:");
+			$pdf->addText($XPos1+30, 125, $FontSize+3, $_POST['partno'. $i]);
+
 			if(!empty($_POST['datecode'.$i])){
 				$datecodeBar = new code128($_POST['datecode'.$i]);
 				ob_start();
-				imagepng(imagepng($datecodeBar->draw()));
+				imagepng(imagepng($datecodeBar->draw(false)));
 				$Image_String = ob_get_contents();
 				ob_end_clean();
 				$pdf->addJpegFromFile('@' . $Image_String,$XPos1,70,calcBarcodeLength($_POST['datecode'.$i]), 45);
 				$pdf->addText($XPos1-3, 80, $FontSize, "Date");
 				$pdf->addText($XPos1-3, 73, $FontSize, "Code:");
+				$pdf->addText($XPos1+30, 76, $FontSize+3, $_POST['datecode'.$i]);
 			}
 
 				$qtyBar = new code128($qty);
 				ob_start();
-				imagepng(imagepng($qtyBar->draw()));
+				imagepng(imagepng($qtyBar->draw(false)));
 				$Image_String = ob_get_contents();
 				ob_end_clean();
 				$pdf->addJpegFromFile('@' . $Image_String,$XPos1,20,calcBarcodeLength($qty), 45);
-				$pdf->addText($XPos1, 31, $FontSize, "Qty:");
-				$pdf->addText($XPos1+70, 31, $FontSize, $_POST['units'.$i]);
+				$pdf->addText($XPos1, 30, $FontSize+2, "Qty:");
+				$pdf->addText($XPos1+60, 30, $FontSize+3, $_POST['units'.$i]);
+				$pdf->addText($Xpos1+30, 30, $FontSize+3, $qty);
 
 
 				$POBar = new code128($_POST['customerref'.$i]);
 				ob_start();
-				imagepng(imagepng($POBar->draw()));
+				imagepng(imagepng($POBar->draw(false)));
 				$Image_String = ob_get_contents();
 				ob_end_clean();
-				$pdf->addJpegFromFile('@' . $Image_String,$XPos1+100,20,calcBarcodeLength($_POST['customerref'.$i]), 45);
-				$pdf->addText($XPos1+100, 31, $FontSize, "PO:");
-				$pdf->addText($XPos1, 18, $FontSize+2, "Vendor: Ming Kee Metal Works Pte Ltd");
+				$pdf->addJpegFromFile('@' . $Image_String,$XPos1+95,20,calcBarcodeLength($_POST['customerref'.$i]), 45);
+
+				$pdf->addText($XPos1+95, 31, $FontSize+3, "PO:");
+				$pdf->addText($XPos1+115, 31, $FontSize+3, $_POST['customerref'.$i]);
+				$pdf->addText($XPos1, 16, $FontSize+2, "Vendor: Ming Kee Metal Works Pte Ltd");
 				$pdf->addJpegFromFile('css/mk_black.jpg', 220, 110, 50, 50);
-				$pdf->addText(215, 110, $FontSize+2, "QA Approved");
+				$pdf->addText(225, 117, $FontSize+15, "QC");
+				$pdf->addText(205, 92, $FontSize+7, "ACCEPTED");
 				
 			
 		}
@@ -326,7 +333,7 @@ if (DB_num_rows($result)==0){
 				$datecodeRes = DB_query($datecodeQ);
 				$comply = DB_fetch_array($complyRes)['value'];
 				$datecode = DB_fetch_array($datecodeRes)['value'];
-				
+
 				echo '
 					<tr>
 						<td><input type="checkbox" name="print'.$myrow2['orderlineno'].'" checked/></td>
@@ -339,7 +346,7 @@ if (DB_num_rows($result)==0){
 
 						<td><input type="text" name="units'.$myrow2['orderlineno'].'" value="'.$myrow2['units'].'" size="30"/></td>
 
-						<td><input type="text" name="customerref'.$myrow2['orderlineno'].'" value="'.$myrow2['customerref'].'" size="30"/></td>
+						<td><input type="text" name="customerref'.$myrow2['orderlineno'].'" value="'.$myrow['customerref'].'" size="30"/></td>
 					
 						<td><input type="text" name="datecode'.$myrow2['orderlineno'].'" value="'.$datecode.'" size="30"/></td>
 					</tr>';
