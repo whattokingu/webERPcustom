@@ -402,6 +402,7 @@ if (isset($_POST['SearchParts']) AND $_POST['SearchParts']!=''){
 							WHERE salesorders.orddate >= '".$DateAfterCriteria . "'
 							AND salesorders.quotation=0
 							AND salesorderdetails.completed".$Completed;
+
 			}
 		} //end selected customer
 	} //end not order number selected
@@ -420,7 +421,6 @@ if (isset($_POST['SearchParts']) AND $_POST['SearchParts']!=''){
 				ORDER BY salesorders.orderno";
 
 	$SalesOrdersResult = DB_query($SQL);
-
 	if (DB_error_no() !=0) {
 		prnMsg( _('No orders were returned by the SQL because') . ' ' . DB_error_msg(), 'info');
 		echo '<br /> ' . $SQL;
@@ -548,14 +548,14 @@ If (isset($StockItemsResult)) {
 //end if stock search results to show
 
 If (isset($SalesOrdersResult)) {
-	if (DB_num_rows($SalesOrdersResult) == 1) {
-		if (!isset($OrderNumber)) {
-			$ordrow = DB_fetch_array($SalesOrdersResult);
-			$OrderNumber = $ordrow['orderno'];
-		}
-		header('location:' . $RootPath .'/OrderDetails.php?OrderNumber=' . $OrderNumber);
-		exit;
-	}
+	// if (DB_num_rows($SalesOrdersResult) == 1) {
+	// 	if (!isset($OrderNumber)) {
+	// 		$ordrow = DB_fetch_array($SalesOrdersResult);
+	// 		$OrderNumber = $ordrow['orderno'];
+	// 	}
+	// 	header('location:' . $RootPath .'/OrderDetails.php?OrderNumber=' . $OrderNumber);
+	// 	exit;
+	// }
 
 /*show a table of the orders returned by the SQL */
 
