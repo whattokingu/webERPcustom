@@ -277,6 +277,8 @@ function ConvertSQLDate($DateEntry) {
 			case 'Y-m-d':
 				return '0000-0-0';
 				break;
+			default:
+				return '0/0/0000';
 		}
 	}
 
@@ -285,7 +287,11 @@ function ConvertSQLDate($DateEntry) {
 	}
 
 	if ($_SESSION['DefaultDateFormat']=='d/m/Y'){
-		return $Date_Array[2].'/'.$Date_Array[1].'/'.$Date_Array[0];
+		if(strlen($Date_Array[2])== 4){
+			return $Date_Array[0].'/'.$Date_Array[1].'/'.$Date_Array[2];
+		}else {
+            return $Date_Array[2] . '/' . $Date_Array[1] . '/' . $Date_Array[0];
+        }
 	} elseif ($_SESSION['DefaultDateFormat']=='d.m.Y'){
 		return $Date_Array[2].'.'.$Date_Array[1].'.'.$Date_Array[0];
 	} elseif ($_SESSION['DefaultDateFormat']=='m/d/Y'){

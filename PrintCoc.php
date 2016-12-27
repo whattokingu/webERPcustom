@@ -90,9 +90,8 @@ if (isset($PrintPDF) AND isset($TransNo)){
 		$DYPos -= 15;
 		$pdf->addText($row2XPos, $DYPos, $FontSize, breakTextToLines($_POST['desc'.$i], 3));
 		$DYPos -= 15;
-		$pdf->addText($row2XPos, $DYPos, $FontSize, breakTextToLines($_POST['desc'.$i], 4));
-		$YPos -= 80;
 
+		$YPos -= 65;
 		$pdf->addText($XPos, $YPos, $FontSize, "Quantity");
 		$pdf->addText($colonXPos, $YPos, $FontSize, ":");
 		$pdf->addText($row2XPos, $YPos, $FontSize, $_POST['quantity'.$i]);
@@ -290,7 +289,7 @@ if (isset($PrintPDF) AND isset($TransNo)){
 				</tr>
 				<tr>
 					<td>Part Description:</td>
-					<td><textarea name="desc'.$myrow2['orderlineno'].'" rows="4" cols="50">'.$myrow2['longdescription'].'</textarea></td>
+					<td><textarea name="desc'.$myrow2['orderlineno'].'" rows="3" cols="50">'.$myrow2['longdescription'].'</textarea></td>
 				</tr>
 				<tr>
 					<td>Quantity:</td>

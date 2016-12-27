@@ -10,7 +10,8 @@ $XPos = $Page_Width/2 - 60;
 
 /* CUSTOM DESIGNED FORM */
 /*LOGO comes with company address already*/
-    $pdf->addJpegFromFile($_SESSION['LogoFile'],15,715,0,130);
+    $pdf->addJpegFromFile($_SESSION['LogoFile'],15,725,0,115);
+	$pdf->addJPegFromFile('css/mk_cert.jpg', 420, 765,0, 40);
 $FontSize=18;
 $linestyle = array(
 				width => '1',
@@ -58,13 +59,12 @@ $XPos = 30;
 $YPos = 690;
 
 if($invoice){
-	$pdf->addText($XPos, $YPos, $FontSize, _('INV'));
+	$pdf->addText(360, $YPos, $FontSize, _('INV'));
 }else{
-	$pdf->addText($XPos, $YPos, $FontSize, _('D/O'));
+	$pdf->addText(360, $YPos, $FontSize, _('D/O'));
 }
-$pdf->addText($XPos+40, $YPos, $FontSize, $_POST['orderno'], 'left');
+$pdf->addText(360+40, $YPos, $FontSize, $_POST['orderno'], 'left');
 $FontSize=14;
-$YPos -= 30;
 if($invoice){
 	$pdf->addText($XPos, $YPos,$FontSize, _('Invoiced To').':' );
 }else{
@@ -84,18 +84,7 @@ if($invoice){
 }
 
 $YPos -= 80;
-/*
-$pdf->addText($XPos, $YPos,$FontSize, _('Customer').':');
-$pdf->addText($XPos, $YPos-15,$FontSize, $myrow['name']);
-$pdf->addText($XPos, $YPos-30,$FontSize, $myrow['address1']);
-$pdf->addText($XPos, $YPos-45,$FontSize, $myrow['address2']);
-$pdf->addText($XPos, $YPos-60,$FontSize, $myrow['address3'] . ' ' . $myrow['address4'] . ' ' . $myrow['address5']. ' ' . $myrow['address6']);
-*/
 
-/*
-$pdf->addText($XPos, $YPos,$FontSize, _('Customer No.'). ' : ' . $myrow['debtorno']);
-$pdf->addText($XPos, $YPos-20,$FontSize, _('Shipped by'). ' : ' . $myrow['shippername']);
-*/
 
 //$LeftOvers = $pdf->addTextWrap($XPos,$YPos-10,170,$FontSize,_('Comments').':'.stripcslashes($myrow['comments']));
 /*
@@ -113,7 +102,7 @@ if (mb_strlen($LeftOvers)>1){
 }*/
 
 //RIGHT BOX
-$YPos = 690;
+$YPos = 675;
 $XPos = 360;
 $Offset= 100;
 $RightYPos = $YPos-10;
@@ -133,6 +122,7 @@ if($invoice){
 	
 }
 $pdf->addText($XPos, $RightYPos-30-$correction,$FontSize,  _('DATE'));
+
 $pdf->addText($XPos+$Offset, $RightYPos-30-$correction,$FontSize,  ': ' . ConvertSQLDate($_POST['ddate']));
 
 $pdf->addText($XPos, $RightYPos-45-$correction,$FontSize,  _('TERMS'));
@@ -174,14 +164,9 @@ $SubTotalW = 70;
 if($invoice){
 	$DescW = 310;
 }
-/*
-$LeftOvers = $pdf->addTextWrap($XPos,$YPos,127,$FontSize, _('Item Code'),'left');
-$LeftOvers = $pdf->addTextWrap(147,$YPos,255,$FontSize, _('Item Description'),'left');
-$LeftOvers = $pdf->addTextWrap(400,$YPos,85,$FontSize, _('Quantity'),'right');
-$LeftOvers = $pdf->addTextWrap(487,$YPos,70,$FontSize, _('Bin Locn'),'center');
-$LeftOvers = $pdf->addTextWrap(573,$YPos,85,$FontSize,_('This Del'),'center');
-$LeftOvers = $pdf->addTextWrap(672,$YPos,85,$FontSize, _('Prev Dels'),'center');
-*/
+if($invoice){
+	$YPos += 15;
+}
 $LeftOvers = $pdf->addTextWrap($XPos,$YPos,$SNW,$FontSize, _('S/N'),'left');
 $LeftOvers = $pdf->addTextWrap($DescXPos,$YPos,$DescW,$FontSize, _('Item Description'),'left');
 if($invoice){
@@ -212,11 +197,11 @@ $pdf->addText(450, 30, $FontSize, _("Authorized Signature"));
 //Draw some boxes for the fields
 
 //DO no box
-$pdf-> line(26, 669, 244, 669, $linestyle);
-$pdf->RoundRectangle(25, 688, 220, 20, 2, 2 );
+$pdf-> line(360, 669, 569, 669, $linestyle);
+$pdf->RoundRectangle(360, 688, 210, 20, 2, 2 );
 
 //DELIVERY ADDR box
-$pdf-> RoundRectangle(25, 660, 220, 85, 2,2);
+$pdf-> RoundRectangle(25, 690, 220, 85, 2,2);
 
 //ITEM box
 $pdf->RoundRectangle(25, 555, 540, 450, 2,2);
