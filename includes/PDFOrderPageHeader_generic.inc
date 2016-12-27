@@ -18,13 +18,21 @@ $linestyle = array(
 			);
 if ($Copy=='Customer'){
 	if($invoice == true){
-		$pdf->addText($XPos-50, 720,$FontSize, _('Tax Invoice') . ' - ' . _('Customer Copy') );
+		if($InvOrCredit == 'credit'){
+			$pdf->addText($XPos-50, 720,$FontSize, _('Credit Note') . ' - ' . _('Customer Copy') );
+		}else{
+			$pdf->addText($XPos-50, 720,$FontSize, _('Tax Invoice') . ' - ' . _('Customer Copy') );
+		}
 	}else{
 		$pdf->addText($XPos-60, 720,$FontSize, _('Delivery Order') . ' - ' . _('Customer Copy') );
 	}
 } else {
 	if($invoice == true){
-		$pdf->addText($XPos-35, 720,$FontSize, _('Tax Invoice') . ' - ' . _('Office Copy') );
+		if($InvOrCredit == 'credit'){
+			$pdf->addText($XPos-50, 720,$FontSize, _('Credit Note') . ' - ' . _('Office Copy') );
+		}else{
+			$pdf->addText($XPos-50, 720,$FontSize, _('Tax Invoice') . ' - ' . _('Office Copy') );
+		}
 	}else{
 		$pdf->addText($XPos-45, 720,$FontSize, _('Delivery Order') . ' - ' . _('Office Copy') );
 	}
